@@ -22,9 +22,9 @@ exports.up = function(knex, Promise) {
     return knex.schema
     .createTable('user_account', (account) =>{
       account.increments('account_id').primary()
-      account.string('user_name')
+      account.string('account_name')
       //This needs to be revisited to figure out how to hash
-      account.string('user_password')
+      account.string('account_password')
       account.integer('user_id').notNullable()
       account.foreign('user_id').references('user_id').inTable('user_personal')
       account.integer('at_id').notNullable()
@@ -69,7 +69,7 @@ exports.up = function(knex, Promise) {
         inv.integer('books_id').notNullable()
         inv.foreign('books_id').references('books_id').inTable('books')
         inv.integer('invstatus_id').notNullable
-        inv.foreign()
+        inv.foreign('invstatus_id').references('invstatus_id').inTable('inv_status')
       })
     })
     //Going to stop there. Current MVP will only show the inventory
@@ -88,3 +88,16 @@ exports.down = function(knex) {
 
 
 };
+//
+/*
+
+You are inheriting a loving family
+
+Rob Stricker
+SMSgt Cruze: 
+
+
+Report date 1 Aug 2021
+
+
+*/

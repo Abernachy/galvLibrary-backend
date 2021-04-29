@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+const knex = require('knex')(require('./knexfile.js')['development'])
 
 
 
@@ -13,18 +14,24 @@ const books =require("../mockdata/books.json")
 const users = require("../mockdata/users.json")
 const checked_out = require("../mockdata/check_out.json")
 
+
+app.get('/', (req,res) => {
+    res.send('Hi')
+})
+
+
 app.get('/api/books', (req, res) => {
-    res.json(books)
+    // For now until I can figure out join queries and all that
+    knex.select().from("books")
+    .then(data => res.status(200).json(data))
 })
 
 app.get("/api/books/:id", (req,res) => {
     let book_id = req.params.id
+    knex.select().from('books').where({books_id:book_id})
+    .then(data => res.status(200).json(data))
     
-    // is the book checked out?
-    let status = books[book_id].checked_out
-    if (status == false){
-    res.json(books[book_id])
-    }
+  
 })
 
 
