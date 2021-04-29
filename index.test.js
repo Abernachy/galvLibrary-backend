@@ -19,7 +19,7 @@ describe('express data endpoints testing', () => {
         .get('/api/books/3')
         .expect(200)
         .expect('Content-Type', /json/)
-      expect(response.body.id).toBe(3)  
+      expect(response.body[0].books_id).toBe(3)  
     })
 
     test("")
